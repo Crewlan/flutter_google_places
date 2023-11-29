@@ -3,8 +3,8 @@ library flutter_google_places.src;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps_webservices/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -76,8 +76,7 @@ class PlacesAutocompleteWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PlacesAutocompleteWidget> createState() =>
-      _PlacesAutocompleteOverlayState();
+  State<PlacesAutocompleteWidget> createState() => _PlacesAutocompleteOverlayState();
 
   static PlacesAutocompleteState? of(BuildContext context) =>
       context.findAncestorStateOfType<PlacesAutocompleteState>();
@@ -105,13 +104,11 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
         ),
       );
     } else {
-      final headerTopLeftBorderRadius = widget.overlayBorderRadius != null
-          ? widget.overlayBorderRadius!.topLeft
-          : const Radius.circular(2);
+      final headerTopLeftBorderRadius =
+          widget.overlayBorderRadius != null ? widget.overlayBorderRadius!.topLeft : const Radius.circular(2);
 
-      final headerTopRightBorderRadius = widget.overlayBorderRadius != null
-          ? widget.overlayBorderRadius!.topRight
-          : const Radius.circular(2);
+      final headerTopRightBorderRadius =
+          widget.overlayBorderRadius != null ? widget.overlayBorderRadius!.topRight : const Radius.circular(2);
 
       final header = Column(
         children: <Widget>[
@@ -125,9 +122,7 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 IconButton(
-                  color: theme.brightness == Brightness.light
-                      ? Colors.black45
-                      : null,
+                  color: theme.brightness == Brightness.light ? Colors.black45 : null,
                   icon: _iconBack,
                   onPressed: () {
                     Navigator.pop(context);
@@ -142,28 +137,24 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
               ],
             ),
           ),
-          const Divider()
+          const Divider(),
         ],
       );
 
       Widget body;
 
-      final bodyBottomLeftBorderRadius = widget.overlayBorderRadius != null
-          ? widget.overlayBorderRadius!.bottomLeft
-          : const Radius.circular(2);
+      final bodyBottomLeftBorderRadius =
+          widget.overlayBorderRadius != null ? widget.overlayBorderRadius!.bottomLeft : const Radius.circular(2);
 
-      final bodyBottomRightBorderRadius = widget.overlayBorderRadius != null
-          ? widget.overlayBorderRadius!.bottomRight
-          : const Radius.circular(2);
+      final bodyBottomRightBorderRadius =
+          widget.overlayBorderRadius != null ? widget.overlayBorderRadius!.bottomRight : const Radius.circular(2);
 
       if (_searching) {
         body = Stack(
           alignment: FractionalOffset.bottomCenter,
           children: <Widget>[_Loader()],
         );
-      } else if (_queryTextController!.text.isEmpty ||
-          _response == null ||
-          _response!.predictions.isEmpty) {
+      } else if (_queryTextController!.text.isEmpty || _response == null || _response!.predictions.isEmpty) {
         body = Material(
           color: theme.dialogBackgroundColor,
           borderRadius: BorderRadius.only(
@@ -224,18 +215,14 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
         autofocus: true,
         style: widget.textStyle ??
             TextStyle(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black87
-                  : null,
+              color: Theme.of(context).brightness == Brightness.light ? Colors.black87 : null,
               fontSize: 16.0,
             ),
         decoration: widget.decoration ??
             InputDecoration(
               hintText: widget.hint,
               hintStyle: TextStyle(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.black45
-                    : null,
+                color: Theme.of(context).brightness == Brightness.light ? Colors.black45 : null,
                 fontSize: 16.0,
               ),
               border: InputBorder.none,
@@ -266,8 +253,7 @@ class PlacesAutocompleteResult extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  PlacesAutocompleteResultState createState() =>
-      PlacesAutocompleteResultState();
+  PlacesAutocompleteResultState createState() => PlacesAutocompleteResultState();
 }
 
 class PlacesAutocompleteResultState extends State<PlacesAutocompleteResult> {
@@ -275,9 +261,7 @@ class PlacesAutocompleteResultState extends State<PlacesAutocompleteResult> {
   Widget build(BuildContext context) {
     final state = PlacesAutocompleteWidget.of(context)!;
 
-    if (state._queryTextController!.text.isEmpty ||
-        state._response == null ||
-        state._response!.predictions.isEmpty) {
+    if (state._queryTextController!.text.isEmpty || state._response == null || state._response!.predictions.isEmpty) {
       final children = <Widget>[];
       if (state._searching) {
         children.add(_Loader());
@@ -304,12 +288,10 @@ class AppBarPlacesAutoCompleteTextField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  AppBarPlacesAutoCompleteTextFieldState createState() =>
-      AppBarPlacesAutoCompleteTextFieldState();
+  AppBarPlacesAutoCompleteTextFieldState createState() => AppBarPlacesAutoCompleteTextFieldState();
 }
 
-class AppBarPlacesAutoCompleteTextFieldState
-    extends State<AppBarPlacesAutoCompleteTextField> {
+class AppBarPlacesAutoCompleteTextFieldState extends State<AppBarPlacesAutoCompleteTextField> {
   @override
   Widget build(BuildContext context) {
     final state = PlacesAutocompleteWidget.of(context)!;
@@ -321,8 +303,7 @@ class AppBarPlacesAutoCompleteTextFieldState
         controller: state._queryTextController,
         autofocus: true,
         style: widget.textStyle ?? _defaultStyle(),
-        decoration:
-            widget.textDecoration ?? _defaultDecoration(state.widget.hint),
+        decoration: widget.textDecoration ?? _defaultDecoration(state.widget.hint),
       ),
     );
   }
@@ -331,13 +312,9 @@ class AppBarPlacesAutoCompleteTextFieldState
     return InputDecoration(
       hintText: hint,
       filled: true,
-      fillColor: Theme.of(context).brightness == Brightness.light
-          ? Colors.white30
-          : Colors.black38,
+      fillColor: Theme.of(context).brightness == Brightness.light ? Colors.white30 : Colors.black38,
       hintStyle: TextStyle(
-        color: Theme.of(context).brightness == Brightness.light
-            ? Colors.black38
-            : Colors.white30,
+        color: Theme.of(context).brightness == Brightness.light ? Colors.black38 : Colors.white30,
         fontSize: 16.0,
       ),
       border: InputBorder.none,
@@ -355,10 +332,8 @@ class AppBarPlacesAutoCompleteTextFieldState
 }
 
 class PoweredByGoogleImage extends StatelessWidget {
-  static const _poweredByGoogleWhite =
-      "packages/flutter_google_places/assets/google_white.png";
-  static const _poweredByGoogleBlack =
-      "packages/flutter_google_places/assets/google_black.png";
+  static const _poweredByGoogleWhite = "packages/flutter_google_places/assets/google_white.png";
+  static const _poweredByGoogleBlack = "packages/flutter_google_places/assets/google_black.png";
 
   const PoweredByGoogleImage({Key? key}) : super(key: key);
 
@@ -366,16 +341,14 @@ class PoweredByGoogleImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+      children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Image.asset(
-            Theme.of(context).brightness == Brightness.light
-                ? _poweredByGoogleWhite
-                : _poweredByGoogleBlack,
+            Theme.of(context).brightness == Brightness.light ? _poweredByGoogleWhite : _poweredByGoogleBlack,
             scale: 2.5,
           ),
-        )
+        ),
       ],
     );
   }
@@ -493,8 +466,7 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
         region: widget.region,
       );
 
-      if (res.errorMessage?.isNotEmpty == true ||
-          res.status == "REQUEST_DENIED") {
+      if (res.errorMessage?.isNotEmpty == true || res.status == "REQUEST_DENIED") {
         onResponseError(res);
       } else {
         onResponse(res);

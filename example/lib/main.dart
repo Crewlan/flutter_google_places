@@ -137,8 +137,7 @@ Future<void> displayPrediction(Prediction? p, BuildContext context) async {
       apiKey: kGoogleApiKey,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
-    PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId!);
+    PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId!);
     final lat = detail.result.geometry!.location.lat;
     final lng = detail.result.geometry!.location.lng;
 
@@ -170,11 +169,11 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: const AppBarPlacesAutoCompleteTextField());
     final body = PlacesAutocompleteResult(
-      onTap: (p) {
+      onTap: (Prediction p) {
         displayPrediction(p, context);
       },
-      logo: Row(
-        children: const [FlutterLogo()],
+      logo: const Row(
+        children: [FlutterLogo()],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
     );
@@ -214,11 +213,9 @@ class Uuid {
         '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
   }
 
-  String _bitsDigits(int bitCount, int digitCount) =>
-      _printDigits(_generateBits(bitCount), digitCount);
+  String _bitsDigits(int bitCount, int digitCount) => _printDigits(_generateBits(bitCount), digitCount);
 
   int _generateBits(int bitCount) => _random.nextInt(1 << bitCount);
 
-  String _printDigits(int value, int count) =>
-      value.toRadixString(16).padLeft(count, '0');
+  String _printDigits(int value, int count) => value.toRadixString(16).padLeft(count, '0');
 }
